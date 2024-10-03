@@ -1,6 +1,32 @@
 'use strict';
 
+document.addEventListener("DOMContentLoaded", function() {
+  const projectContainer = document.querySelector('.project-container');
+  const prevBtn = document.querySelector('.prev-btn');
+  const nextBtn = document.querySelector('.next-btn');
+  
+  let scrollAmount = 0;
+  const cardWidth = 320; // Card width + margin
+  const maxScroll = projectContainer.scrollWidth - projectContainer.clientWidth;
 
+  // Next button functionality
+  nextBtn.addEventListener('click', () => {
+    scrollAmount += cardWidth;
+    if (scrollAmount >= maxScroll) {
+      scrollAmount = maxScroll; // Prevent overflow
+    }
+    projectContainer.style.transform = `translateX(-${scrollAmount}px)`;
+  });
+
+  // Previous button functionality
+  prevBtn.addEventListener('click', () => {
+    scrollAmount -= cardWidth;
+    if (scrollAmount <= 0) {
+      scrollAmount = 0; // Prevent overflow
+    }
+    projectContainer.style.transform = `translateX(-${scrollAmount}px)`;
+  });
+});
 
 /**
  * add event listener on multiple elements
@@ -11,7 +37,6 @@ const addEventOnElements = function (elements, eventType, callback) {
     elements[i].addEventListener(eventType, callback);
   }
 }
-
 
 
 /**
